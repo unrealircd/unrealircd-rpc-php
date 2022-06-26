@@ -27,7 +27,7 @@ both the 1st and 2nd post there in particular.
 Installation
 ------------
 ```bash
-composer require unrealircd/unrealircd-rpc
+composer require unrealircd/unrealircd-rpc:dev-main
 ```
 
 Usage
