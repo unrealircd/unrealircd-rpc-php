@@ -1,0 +1,23 @@
+{
+    "name": "unrealircd/unrealircd-rpc",
+    "description": "JSON-RPC interface to UnrealIRCd",
+    "type": "library",
+    "require": {
+        "textalk/websocket": "^1.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "UnrealIRCdRPC\\": "lib/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Bram Matthys",
+            "email": "syzop@vulnscan.org"
+        }
+    ],
+    "support": {
+        "irc": "ircs://irc.unrealircd.org/unreal-webpanel"
+    }
+}
