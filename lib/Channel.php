@@ -25,7 +25,7 @@ class Channel implements Contracts\User
     {
         $id = random_int(100, 1000);
 
-        $response = $this->connection->query($id, 'channel.list');
+        $response = $this->connection->query('channel.list');
 
         if($id !== $response->id) {
             throw new Exception('Invalid ID. This is not the expected reply.');
@@ -49,7 +49,7 @@ class Channel implements Contracts\User
     {
         $id = random_int(100, 1000);
 
-        $response = $this->connection->query($id, 'channel.get', ['channel' => $params['channel']]);
+        $response = $this->connection->query('channel.get', ['channel' => $params['channel']]);
 
         if($id !== $response->id) {
             throw new Exception('Invalid ID. This is not the expected reply.');
