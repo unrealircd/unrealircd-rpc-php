@@ -19,10 +19,10 @@ class Ban implements Contracts\Ban
      * @param  string  $user
      * @param  string  $type
      * @param  array  $params
-     * @return stdClass
+     * @return bool
      * @throws Exception
      */
-    public function add(string $user, string $type, array $params): stdClass
+    public function add(string $user, string $type, array $params): bool
     {
         $response = $this->connection->query('server_ban.add', [
             'name' => $params['name'],
@@ -42,10 +42,10 @@ class Ban implements Contracts\Ban
      * @param  string  $user
      * @param  string  $type
      * @param  array  $params
-     * @return stdClass
+     * @return bool
      * @throws Exception
      */
-    public function delete(string $user, string $type, array $params): stdClass
+    public function delete(string $user, string $type, array $params): bool
     {
         $response = $this->connection->query('server_ban.del', [
             'name' => $params['name'],
