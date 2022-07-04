@@ -2,6 +2,7 @@
 
 namespace UnrealIRCd;
 
+use Exception;
 use WebSocket;
 
 class Connection
@@ -12,7 +13,7 @@ class Connection
     {
         $context = $options["context"] ?? stream_context_create();
 
-        if (isset($options["tls_verify"]) && ($options["tls_verify"] == false)) {
+        if (isset($options["tls_verify"]) && !$options["tls_verify"]) {
             stream_context_set_option($context, 'ssl', 'verify_peer', false);
             stream_context_set_option($context, 'ssl', 'verify_peer_name', false);
         }
@@ -27,13 +28,25 @@ class Connection
 
     }
 
-    public function query(string $method, array $params = [])
+    /**
+     * Encode and send a query to the RPC server.
+     *
+     * @note I'm not sure on the response type except that it may be either an object or array.
+     *
+     * @param  string  $method
+     * @param  array  $params
+     * @return object|array|bool
+     * @throws Exception
+     */
+    public function query(string $method, array $params = []): object|array|bool
     {
+        $id = random_int(1, 99999);
+
         $rpc = [
             "jsonrpc" => "2.0",
             "method" => $method,
             "params" => $params,
-            "id" => 123
+            "id" => $id
         ];
 
         $json_rpc = json_encode($rpc);
@@ -44,6 +57,10 @@ class Connection
         $reply = json_decode($reply);
 
         if ($reply->response) {
+            if($id !== $reply->response->id) {
+                throw new Exception('Invalid ID. This is not the expected reply.');
+            }
+
             return $reply->response;
         } else {
             return false;

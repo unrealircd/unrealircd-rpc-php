@@ -7,16 +7,15 @@ interface Contract
     /**
      * Fetch all of a specific item.
      *
-     * @return array
+     * @return array|bool
      */
-    public function get(): array;
+    public function get(): array|bool;
 
     /**
      * Fetch data about a specific item.
      *
-     * @param  string  $item
      * @param  array  $params
-     * @return object
+     * @return object|bool
      */
-    public function show(string $item, array $params): object;
+    public function show(array $params): object|bool;
 }
