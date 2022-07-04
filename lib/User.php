@@ -3,6 +3,7 @@
 namespace UnrealIRCd;
 
 use Exception;
+use stdClass;
 
 class User implements Contracts\User
 {
@@ -19,7 +20,7 @@ class User implements Contracts\User
      *
      * @throws Exception
      */
-    public function get(): array
+    public function get(): stdClass
     {
         $response = $this->connection->query('user.list');
 
@@ -34,10 +35,10 @@ class User implements Contracts\User
      * Return a user object
      *
      * @param  array  $params
-     * @return object|bool
+     * @return stdClass
      * @throws Exception
      */
-    public function show(array $params): object|bool
+    public function show(array $params): stdClass
     {
         $response = $this->connection->query('user.get', ['nick' => $params['nick']]);
 

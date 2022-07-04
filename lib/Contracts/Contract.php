@@ -2,20 +2,22 @@
 
 namespace UnrealIRCd\Contracts;
 
+use stdClass;
+
 interface Contract
 {
     /**
      * Fetch all of a specific item.
      *
-     * @return array|bool
+     * @return stdClass
      */
-    public function get(): array|bool;
+    public function get(): stdClass;
 
     /**
      * Fetch data about a specific item.
      *
      * @param  array  $params
-     * @return object|bool
+     * @return stdClass
      */
-    public function show(array $params): object|bool;
+    public function show(array $params): stdClass;
 }
