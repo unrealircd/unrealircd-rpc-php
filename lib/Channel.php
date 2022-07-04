@@ -23,13 +23,7 @@ class Channel implements Contracts\User
      */
     public function get(): stdClass
     {
-        $id = random_int(100, 1000);
-
         $response = $this->connection->query('channel.list');
-
-        if($id !== $response->id) {
-            throw new Exception('Invalid ID. This is not the expected reply.');
-        }
 
         if(!is_bool($response)) {
             return $response;
@@ -47,13 +41,7 @@ class Channel implements Contracts\User
      */
     public function show(array $params): stdClass
     {
-        $id = random_int(100, 1000);
-
         $response = $this->connection->query('channel.get', ['channel' => $params['channel']]);
-
-        if($id !== $response->id) {
-            throw new Exception('Invalid ID. This is not the expected reply.');
-        }
 
         if (!is_bool($response)) {
             return $response;
