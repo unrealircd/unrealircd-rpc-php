@@ -3,6 +3,7 @@
 namespace UnrealIRCd;
 
 use Exception;
+use stdClass;
 
 class Ban implements Contracts\Ban
 {
@@ -15,54 +16,50 @@ class Ban implements Contracts\Ban
     }
 
     /**
+     * Add a ban.
+     *
      * @param  string  $user
-     * @param  string  $type
      * @param  array  $params
-     * @return bool
+     * @return stdClass
      * @throws Exception
      */
-    public function add(string $user, string $type, array $params): bool
+    public function add(string $user, array $params): stdClass
     {
         $response = $this->connection->query('server_ban.add', [
-            'name' => $params['name'],
+            'name' => $user,
             'type' => $params['type'],
             'reason' => $params['reason'],
             'length' => $params['length'] ?? '1d',
         ]);
 
-        if (is_bool($response)) {
-            return $response;
-        }
-
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return $response;
     }
 
     /**
+     * Delete a ban.
+     *
      * @param  string  $user
-     * @param  string  $type
      * @param  array  $params
-     * @return bool
+     * @return stdClass
      * @throws Exception
      */
-    public function delete(string $user, string $type, array $params): bool
+    public function delete(string $user, array $params): stdClass
     {
         $response = $this->connection->query('server_ban.del', [
-            'name' => $params['name'],
+            'name' => $user,
             'type' => $params['type'],
         ]);
 
-        if (is_bool($response)) {
-            return $response;
-        }
-
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return $response;
     }
 
     /**
-     * @return array|bool
+     * Return a list of all bans.
+     *
+     * @return stdClass
      * @throws Exception
      */
-    public function get(): array|bool
+    public function get(): stdClass
     {
         $response = $this->connection->query('server_ban.list');
 
@@ -74,11 +71,13 @@ class Ban implements Contracts\Ban
     }
 
     /**
+     * Show a specific ban.
+     *
      * @param  array  $params
-     * @return object|bool
+     * @return stdClass
      * @throws Exception
      */
-    public function show(array $params): object|bool
+    public function show(array $params): stdClass
     {
         $response = $this->connection->query('server_ban.get', [
             'name' => $params['name'],
