@@ -16,6 +16,8 @@ class Ban implements Contracts\Ban
     }
 
     /**
+     * Add a ban.
+     *
      * @param  string  $user
      * @param  array  $params
      * @return stdClass
@@ -30,14 +32,12 @@ class Ban implements Contracts\Ban
             'length' => $params['length'] ?? '1d',
         ]);
 
-        if (is_bool($response)) {
-            return $response;
-        }
-
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return $response;
     }
 
     /**
+     * Delete a ban.
+     *
      * @param  string  $user
      * @param  array  $params
      * @return stdClass
@@ -50,15 +50,13 @@ class Ban implements Contracts\Ban
             'type' => $params['type'],
         ]);
 
-        if (is_bool($response)) {
-            return $response;
-        }
-
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return $response;
     }
 
     /**
-     * @return array|bool
+     * Return a list of all bans.
+     *
+     * @return stdClass
      * @throws Exception
      */
     public function get(): stdClass
@@ -73,8 +71,10 @@ class Ban implements Contracts\Ban
     }
 
     /**
+     * Show a specific ban.
+     *
      * @param  array  $params
-     * @return object|bool
+     * @return stdClass
      * @throws Exception
      */
     public function show(array $params): stdClass
