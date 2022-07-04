@@ -3,6 +3,7 @@
 namespace UnrealIRCd;
 
 use Exception;
+use stdClass;
 
 class Ban implements Contracts\Ban
 {
@@ -18,10 +19,10 @@ class Ban implements Contracts\Ban
      * @param  string  $user
      * @param  string  $type
      * @param  array  $params
-     * @return bool
+     * @return stdClass
      * @throws Exception
      */
-    public function add(string $user, string $type, array $params): bool
+    public function add(string $user, string $type, array $params): stdClass
     {
         $response = $this->connection->query('server_ban.add', [
             'name' => $params['name'],
@@ -41,10 +42,10 @@ class Ban implements Contracts\Ban
      * @param  string  $user
      * @param  string  $type
      * @param  array  $params
-     * @return bool
+     * @return stdClass
      * @throws Exception
      */
-    public function delete(string $user, string $type, array $params): bool
+    public function delete(string $user, string $type, array $params): stdClass
     {
         $response = $this->connection->query('server_ban.del', [
             'name' => $params['name'],
@@ -62,7 +63,7 @@ class Ban implements Contracts\Ban
      * @return array|bool
      * @throws Exception
      */
-    public function get(): array|bool
+    public function get(): stdClass
     {
         $response = $this->connection->query('server_ban.list');
 
@@ -78,7 +79,7 @@ class Ban implements Contracts\Ban
      * @return object|bool
      * @throws Exception
      */
-    public function show(array $params): object|bool
+    public function show(array $params): stdClass
     {
         $response = $this->connection->query('server_ban.get', [
             'name' => $params['name'],
