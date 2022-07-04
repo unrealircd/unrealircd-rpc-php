@@ -3,6 +3,7 @@
 namespace UnrealIRCd;
 
 use Exception;
+use stdClass;
 
 class Channel implements Contracts\User
 {
@@ -17,9 +18,10 @@ class Channel implements Contracts\User
     /**
      * Return a list of channels users.
      *
+     * @return stdClass
      * @throws Exception
      */
-    public function get(): array
+    public function get(): stdClass
     {
         $id = random_int(100, 1000);
 
@@ -40,10 +42,10 @@ class Channel implements Contracts\User
      * Return a channel object
      *
      * @param  array  $params
-     * @return object|bool
+     * @return stdClass
      * @throws Exception
      */
-    public function show(array $params): object|bool
+    public function show(array $params): stdClass
     {
         $id = random_int(100, 1000);
 
