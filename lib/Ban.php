@@ -29,7 +29,7 @@ class Ban implements Contracts\Ban
             'name' => $user,
             'type' => $params['type'],
             'reason' => $params['reason'],
-            'length' => $params['length'] ?? '1d',
+            'expire_at' => $params['length'] ?? '1d',
         ]);
 
         return $response;
