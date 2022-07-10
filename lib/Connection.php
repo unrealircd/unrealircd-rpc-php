@@ -56,14 +56,17 @@ class Connection
 
         $reply = json_decode($reply);
 
-        if ($reply->response) {
+        if (property_exists($reply, 'response')) {
             if($id !== $reply->id) {
                 throw new Exception('Invalid ID. This is not the expected reply.');
             }
-
             return $reply->response;
-        } else {
-            return false;
         }
+
+        if(property_exists($reply, 'error')) {
+            return $reply->error;
+        }
+
+        return false;
     }
 }
