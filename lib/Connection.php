@@ -9,7 +9,7 @@ class Connection
 {
     protected WebSocket\Client $connection;
 
-    public function __construct(string $uri, string $api_login, array $options = [])
+    public function __construct(string $uri, string $api_login, array $options)
     {
         $context = $options["context"] ?? stream_context_create();
 
@@ -38,7 +38,7 @@ class Connection
      * @return object|array|bool
      * @throws Exception
      */
-    public function query(string $method, array $params = []): object|array|bool
+    public function query(string $method, array $params): object|array|bool
     {
         $id = random_int(1, 99999);
 
@@ -56,7 +56,7 @@ class Connection
 
         $reply = json_decode($reply);
 
-        if (property_exists($reply, 'response')) {
+        if (property_exists($reply, 'reply')) {
             if($id !== $reply->id) {
                 throw new Exception('Invalid ID. This is not the expected reply.');
             }
