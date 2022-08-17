@@ -9,7 +9,7 @@ class Connection
 {
     protected WebSocket\Client $connection;
 
-    public function __construct(string $uri, string $api_login, array $options = [])
+    public function __construct(string $uri, string $api_login, array $options = null)
     {
         $context = $options["context"] ?? stream_context_create();
 
@@ -34,11 +34,12 @@ class Connection
      * @note I'm not sure on the response type except that it may be either an object or array.
      *
      * @param  string  $method
-     * @param  array  $params
+     * @param  array|null  $params
+     *
      * @return object|array|bool
      * @throws Exception
      */
-    public function query(string $method, array $params = []): object|array|bool
+    public function query(string $method, array|null $params = null): object|array|bool
     {
         $id = random_int(1, 99999);
 
@@ -56,14 +57,17 @@ class Connection
 
         $reply = json_decode($reply);
 
-        if ($reply->response) {
+        if (property_exists($reply, 'reply')) {
             if($id !== $reply->id) {
                 throw new Exception('Invalid ID. This is not the expected reply.');
             }
-
             return $reply->response;
-        } else {
-            return false;
         }
+
+        if(property_exists($reply, 'error')) {
+            return $reply->error;
+        }
+
+        return false;
     }
 }

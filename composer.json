@@ -1,5 +1,6 @@
 {
     "name": "unrealircd/unrealircd-rpc",
+    "version": "0.1.0",
     "description": "JSON-RPC interface to UnrealIRCd",
     "type": "library",
     "require": {
@@ -16,6 +17,10 @@
         {
             "name": "Bram Matthys",
             "email": "syzop@vulnscan.org"
+        },
+        {
+            "name": "Denver Freeburn",
+            "email": "sketch@sketchni.uk"
         }
     ],
     "support": {
