@@ -25,14 +25,12 @@ class Ban implements Contracts\Ban
      */
     public function add(string $user, array $params): stdClass
     {
-        $response = $this->connection->query('server_ban.add', [
+        return $this->connection->query('server_ban.add', [
             'name' => $user,
             'type' => $params['type'],
             'reason' => $params['reason'],
             'duration_string' => $params['length'] ?? '1d',
         ]);
-
-        return $response;
     }
 
     /**
@@ -45,12 +43,10 @@ class Ban implements Contracts\Ban
      */
     public function delete(string $user, array $params): stdClass
     {
-        $response = $this->connection->query('server_ban.del', [
+        return $this->connection->query('server_ban.del', [
             'name' => $user,
             'type' => $params['type'],
         ]);
-
-        return $response;
     }
 
     /**
