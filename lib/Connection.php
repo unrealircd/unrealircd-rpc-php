@@ -61,7 +61,7 @@ class Connection
             if($id !== $reply->id) {
                 throw new Exception('Invalid ID. This is not the expected reply.');
             }
-            return $reply->response;
+            return $reply->result;
         }
 
         if(property_exists($reply, 'error')) {
