@@ -9,6 +9,9 @@ class Connection
 {
     protected WebSocket\Client $connection;
 
+    public $errno = 0;
+    public $error = NULL;
+
     public function __construct(string $uri, string $api_login, array $options = null)
     {
         $context = $options["context"] ?? stream_context_create();
@@ -61,14 +64,19 @@ class Connection
             if($id !== $reply->id) {
                 throw new Exception('Invalid ID. This is not the expected reply.');
             }
+            $this->errno = 0;
+            $this->error = NULL;
             return $reply->result;
         }
 
-        if(property_exists($reply, 'error')) {
-            return $reply->error;
+        if (property_exists($reply, 'error')) {
+            $this->errno = $reply->error->code;
+            $this->error = $reply->error->message;
+            return false;
         }
 
-        return false;
+        /* This should never happen */
+        throw new Exception('Invalid JSON-RPC response from UnrealIRCd: not an error and not a result.');
     }
 
     public function user(): User

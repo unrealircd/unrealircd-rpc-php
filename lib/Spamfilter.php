@@ -18,10 +18,10 @@ class Spamfilter
     /**
      * Add a spamfilter.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function add(string $name, string $match_type, string $spamfilter_targets, string $ban_action, string $ban_duration, string $reason): stdClass
+    public function add(string $name, string $match_type, string $spamfilter_targets, string $ban_action, string $ban_duration, string $reason): stdClass|bool
     {
         return $this->connection->query('spamfilter.add', [
             'name' => $name,
@@ -36,10 +36,10 @@ class Spamfilter
     /**
      * Delete a spamfilter.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function delete(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass
+    public function delete(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|bool
     {
         return $this->connection->query('spamfilter.del', [
             'name' => $name,
@@ -52,10 +52,10 @@ class Spamfilter
     /**
      * Return a list of all spamfilters.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function getAll(): stdClass
+    public function getAll(): stdClass|bool
     {
         $response = $this->connection->query('spamfilter.list');
 
@@ -69,10 +69,10 @@ class Spamfilter
     /**
      * Get a specific spamfilter.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function get(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass
+    public function get(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|bool
     {
         $response = $this->connection->query('spamfilter.get', [
             'name' => $name,

@@ -19,10 +19,10 @@ class ServerBan
      * Add a ban.
      *
      * @param  string  $user
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function add(string $name, string $type, string $duration, string $reason): stdClass
+    public function add(string $name, string $type, string $duration, string $reason): stdClass|bool
     {
         return $this->connection->query('server_ban.add', [
             'name' => $name,
@@ -36,10 +36,10 @@ class ServerBan
      * Delete a ban.
      *
      * @param  string  $name
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function delete(string $name, string $type): stdClass
+    public function delete(string $name, string $type): stdClass|bool
     {
         return $this->connection->query('server_ban.del', [
             'name' => $name,
@@ -50,10 +50,10 @@ class ServerBan
     /**
      * Return a list of all bans.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function getAll(): stdClass
+    public function getAll(): stdClass|bool
     {
         $response = $this->connection->query('server_ban.list');
 
@@ -67,10 +67,10 @@ class ServerBan
     /**
      * Get a specific ban.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function get(string $name, string $type): stdClass
+    public function get(string $name, string $type): stdClass|bool
     {
         $response = $this->connection->query('server_ban.get', [
             'name' => $name,

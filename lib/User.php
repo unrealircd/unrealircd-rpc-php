@@ -20,7 +20,7 @@ class User
      *
      * @throws Exception
      */
-    public function getAll(): stdClass
+    public function getAll(): stdClass|bool
     {
         $response = $this->connection->query('user.list');
 
@@ -34,10 +34,10 @@ class User
     /**
      * Return a user object
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function get(string $nick): stdClass
+    public function get(string $nick): stdClass|bool
     {
         $response = $this->connection->query('user.get', ['nick' => $nick]);
 

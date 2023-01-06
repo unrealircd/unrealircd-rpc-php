@@ -18,10 +18,10 @@ class Channel
     /**
      * Return a list of channels users.
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function getAll(): stdClass
+    public function getAll(): stdClass|bool
     {
         $response = $this->connection->query('channel.list');
 
@@ -35,10 +35,10 @@ class Channel
     /**
      * Get a channel object
      *
-     * @return stdClass
+     * @return stdClass|bool
      * @throws Exception
      */
-    public function get(string $channel): stdClass
+    public function get(string $channel): stdClass|bool
     {
         $response = $this->connection->query('channel.get', ['channel' => $channel]);
 
