@@ -4,7 +4,7 @@ namespace UnrealIRCd\Contracts;
 
 use stdClass;
 
-interface Ban extends Contract
+interface ServerBan extends Contract
 {
     /**
      * Add a ban for a user.

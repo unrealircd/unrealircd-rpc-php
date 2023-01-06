@@ -81,9 +81,9 @@ class Connection
         return new Channel($this);
     }
 
-    public function ban(): Ban
+    public function serverban(): ServerBan
     {
-        return new Ban($this);
+        return new ServerBan($this);
     }
 
     public function spamfilter(): Spamfilter
