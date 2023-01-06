@@ -5,7 +5,7 @@ namespace UnrealIRCd;
 use Exception;
 use stdClass;
 
-class ServerBan implements Contracts\ServerBan
+class ServerBan
 {
 
     public Connection $connection;

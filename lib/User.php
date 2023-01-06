@@ -5,7 +5,7 @@ namespace UnrealIRCd;
 use Exception;
 use stdClass;
 
-class User implements Contracts\User
+class User
 {
 
     public Connection $connection;

@@ -5,7 +5,7 @@ namespace UnrealIRCd;
 use Exception;
 use stdClass;
 
-class Channel implements Contracts\User
+class Channel
 {
 
     public Connection $connection;
