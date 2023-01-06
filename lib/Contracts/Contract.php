@@ -19,5 +19,5 @@ interface Contract
      * @param  array  $params
      * @return stdClass
      */
-    public function get(array $params): stdClass;
+    //public function get(array $params): stdClass;
 }

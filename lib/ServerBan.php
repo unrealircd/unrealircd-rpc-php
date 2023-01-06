@@ -19,33 +19,31 @@ class ServerBan implements Contracts\ServerBan
      * Add a ban.
      *
      * @param  string  $user
-     * @param  array  $params
      * @return stdClass
      * @throws Exception
      */
-    public function add(string $user, array $params): stdClass
+    public function add(string $name, string $type, string $duration, string $reason): stdClass
     {
         return $this->connection->query('server_ban.add', [
-            'name' => $user,
-            'type' => $params['type'],
-            'reason' => $params['reason'],
-            'duration_string' => $params['length'] ?? '1d',
+            'name' => $name,
+            'type' => $type,
+            'reason' => $reason,
+            'duration_string' => $duration ?? '1d',
         ]);
     }
 
     /**
      * Delete a ban.
      *
-     * @param  string  $user
-     * @param  array  $params
+     * @param  string  $name
      * @return stdClass
      * @throws Exception
      */
-    public function delete(string $user, array $params): stdClass
+    public function delete(string $name, string $type): stdClass
     {
         return $this->connection->query('server_ban.del', [
-            'name' => $user,
-            'type' => $params['type'],
+            'name' => $name,
+            'type' => $type,
         ]);
     }
 

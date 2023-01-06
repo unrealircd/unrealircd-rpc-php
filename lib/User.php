@@ -34,13 +34,12 @@ class User implements Contracts\User
     /**
      * Return a user object
      *
-     * @param  array  $params
      * @return stdClass
      * @throws Exception
      */
-    public function get(array $params): stdClass
+    public function get(string $nick): stdClass
     {
-        $response = $this->connection->query('user.get', ['nick' => $params['nick']]);
+        $response = $this->connection->query('user.get', ['nick' => $nick]);
 
         if (!is_bool($response)) {
             return $response;

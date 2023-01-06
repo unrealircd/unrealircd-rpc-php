@@ -13,12 +13,12 @@ interface ServerBan extends Contract
      * @param  array  $params
      * @return stdClass
      */
-    public function add(string $user, array $params): stdClass;
+    public function add(string $name, string $type, string $duration, string $reason): stdClass;
 
     /**
      * @param  string  $user
      * @param  array  $params
      * @return stdClass
      */
-    public function delete(string $user, array $params): stdClass;
+    public function delete(string $name, string $type): stdClass;
 }
