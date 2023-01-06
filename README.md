@@ -44,15 +44,15 @@ For this example, create a file like `src/rpctest.php` with:
                         Array("tls_verify"=>FALSE));
 
     $bans = $rpc->serverban()->getAll();
-    foreach ($bans->list as $ban)
+    foreach ($bans as $ban)
         echo "There's a $ban->type on $ban->name\n";
 
     $users = $rpc->user()->getAll();
-    foreach ($users->list as $user)
+    foreach ($users as $user)
         echo "User $user->name\n";
 
     $channels = $rpc->channel()->getAll();
-    foreach ($channels->list as $channel)
+    foreach ($channels as $channel)
         echo "Channel $channel->name ($channel->num_users user[s])\n";
 ```
 And then run it on the command line with `php src/rpctest.php`

@@ -18,15 +18,15 @@ class Channel
     /**
      * Return a list of channels users.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function getAll(): stdClass|bool
+    public function getAll(): stdClass|array|bool
     {
         $response = $this->connection->query('channel.list');
 
         if(!is_bool($response)) {
-            return $response;
+            return $response->list;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
@@ -35,10 +35,10 @@ class Channel
     /**
      * Get a channel object
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function get(string $channel): stdClass|bool
+    public function get(string $channel): stdClass|array|bool
     {
         $response = $this->connection->query('channel.get', ['channel' => $channel]);
 

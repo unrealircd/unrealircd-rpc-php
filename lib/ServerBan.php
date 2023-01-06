@@ -19,10 +19,10 @@ class ServerBan
      * Add a ban.
      *
      * @param  string  $user
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function add(string $name, string $type, string $duration, string $reason): stdClass|bool
+    public function add(string $name, string $type, string $duration, string $reason): stdClass|array|bool
     {
         return $this->connection->query('server_ban.add', [
             'name' => $name,
@@ -36,10 +36,10 @@ class ServerBan
      * Delete a ban.
      *
      * @param  string  $name
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function delete(string $name, string $type): stdClass|bool
+    public function delete(string $name, string $type): stdClass|array|bool
     {
         return $this->connection->query('server_ban.del', [
             'name' => $name,
@@ -50,15 +50,15 @@ class ServerBan
     /**
      * Return a list of all bans.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function getAll(): stdClass|bool
+    public function getAll(): stdClass|array|bool
     {
         $response = $this->connection->query('server_ban.list');
 
         if (!is_bool($response)) {
-            return $response;
+            return $response->list;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
@@ -67,10 +67,10 @@ class ServerBan
     /**
      * Get a specific ban.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function get(string $name, string $type): stdClass|bool
+    public function get(string $name, string $type): stdClass|array|bool
     {
         $response = $this->connection->query('server_ban.get', [
             'name' => $name,

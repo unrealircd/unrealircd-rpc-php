@@ -18,10 +18,10 @@ class Spamfilter
     /**
      * Add a spamfilter.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function add(string $name, string $match_type, string $spamfilter_targets, string $ban_action, string $ban_duration, string $reason): stdClass|bool
+    public function add(string $name, string $match_type, string $spamfilter_targets, string $ban_action, string $ban_duration, string $reason): stdClass|array|bool
     {
         return $this->connection->query('spamfilter.add', [
             'name' => $name,
@@ -36,10 +36,10 @@ class Spamfilter
     /**
      * Delete a spamfilter.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function delete(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|bool
+    public function delete(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|array|bool
     {
         return $this->connection->query('spamfilter.del', [
             'name' => $name,
@@ -52,15 +52,15 @@ class Spamfilter
     /**
      * Return a list of all spamfilters.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function getAll(): stdClass|bool
+    public function getAll(): stdClass|array|bool
     {
         $response = $this->connection->query('spamfilter.list');
 
         if (!is_bool($response)) {
-            return $response;
+            return $response->list;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
@@ -69,10 +69,10 @@ class Spamfilter
     /**
      * Get a specific spamfilter.
      *
-     * @return stdClass|bool
+     * @return stdClass|array|bool
      * @throws Exception
      */
-    public function get(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|bool
+    public function get(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|array|bool
     {
         $response = $this->connection->query('spamfilter.get', [
             'name' => $name,
