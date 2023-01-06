@@ -4,31 +4,25 @@ UnrealIRCd RPC
 This allows PHP scripts to control [UnrealIRCd](https://www.unrealircd.org/)
 via the [JSON-RPC interface](https://www.unrealircd.org/docs/JSON-RPC).
 
-Currently this is just a proof-of-concept:
-* It allows you to connect only using websockets
-* It has only 1 function (`query`) to send a JSON-RPC request and receive a response,
-  which is low-level. You need to know *exactly* what method to call and with
-  what parameters. So there is no `listUsers` or things like that.
-* There is only limited error checking
-* Etc...
+If you are interested in helping out or would like to discuss API
+capabilities, join us at `#unreal-webpanel` at irc.unrealircd.org
+(IRC with TLS on port 6697).
 
-This is just a proof-of-concept to get things going and to see if there
-is interest in making it a more serious library. A serious library would
-abstract everything and provide functions such as `listUsers`, `listServerBans`,
-`addServerBan`, etc. That way the programmer using it would not need to
-know anything about JSON-RPC at all.
-
-If you are interested in helping out to achieve that, join us at
-`#unreal-webpanel` at irc.unrealircd.org (IRC with TLS on port 6697).
-
-See also [Looking for webdevs to make UnrealIRCd webpanel](https://forums.unrealircd.org/viewtopic.php?t=9195),
-both the 1st and 2nd post there in particular.
+See also [Looking for webdevs to make UnrealIRCd webpanel](https://forums.unrealircd.org/viewtopic.php?t=9257).
 
 Installation
 ------------
 ```bash
 composer require unrealircd/unrealircd-rpc:dev-main
 ```
+
+UnrealIRCd setup
+-----------------
+UnrealIRCd 6.0.5 is needed and you need to create a listen block with
+listen::optiosn::rpc and an API user, as explained in
+https://www.unrealircd.org/docs/JSON-RPC.
+
+After doing that, rehash the IRCd.
 
 Usage
 -----
@@ -37,22 +31,29 @@ For this example, create a file like `src/rpctest.php` with:
 <?php
     require dirname(__DIR__) . '/vendor/autoload.php';
 
-    use UnrealIRCdRPC\Connection;
+    use UnrealIRCd\Connection;
 
-    $api_login = 'api:password';
+    $api_login = 'api:apiPASSWORD'; // same as in the rpc-user block in UnrealIRCd
 
-    $rpc = new UnrealIRCdRPC\Connection("wss://127.0.0.1:8000/",
+    $rpc = new UnrealIRCd\Connection("wss://127.0.0.1:8000/",
                         $api_login,
                         Array("tls_verify"=>FALSE));
 
-    $bans = $rpc->query("server_ban.list");
+    $bans = $rpc->serverban()->getAll();
     foreach ($bans->list as $ban)
-        echo "$ban->type at $ban->name\n";
+        echo "There's a $ban->type on $ban->name\n";
+
+    $users = $rpc->user()->getAll();
+    foreach ($users->list as $user)
+        echo "User $user->name\n";
+
+    $channels = $rpc->channel()->getAll();
+    foreach ($channels->list as $channel)
+        echo "Channel $channel->name ($channel->num_users user[s])\n";
 ```
 And then run it on the command line with `php src/rpctest.php`
 
-Make sure to configure your UnrealIRCd correctly, with the same
-API username and password you use here, and with an allowed IP,
-and changing the `127.0.0.1:8000` too if needed.
-For the UnrealIRCd-side configuration, see:
-[JSON-RPC over HTTPS Websocket](https://www.unrealircd.org/docs/JSON-RPC#HTTPS_Websocket)
+If the example does not work, then make sure you have configured your
+UnrealIRCd correctly, with the same API username and password you use
+here, and with an allowed IP, and changing the `127.0.0.1:8000` too
+if needed.
