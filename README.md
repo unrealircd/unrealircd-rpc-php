@@ -4,6 +4,11 @@ UnrealIRCd RPC
 This allows PHP scripts to control [UnrealIRCd](https://www.unrealircd.org/)
 via the [JSON-RPC interface](https://www.unrealircd.org/docs/JSON-RPC).
 
+WARNING: Both the UnrealIRCd-side and this PHP library are under heavy
+development so major API breakages are likely, such as changing the
+function names, arguments that need to be passed and the way things
+are returned.
+
 If you are interested in helping out or would like to discuss API
 capabilities, join us at `#unreal-webpanel` at irc.unrealircd.org
 (IRC with TLS on port 6697).
@@ -18,11 +23,10 @@ composer require unrealircd/unrealircd-rpc:dev-main
 
 UnrealIRCd setup
 -----------------
-UnrealIRCd 6.0.5 is needed and you need to create a listen block with
-listen::optiosn::rpc and an API user, as explained in
+UnrealIRCd 6.0.5 is needed and you need to configure it as explained in
 https://www.unrealircd.org/docs/JSON-RPC.
 
-After doing that, rehash the IRCd.
+After doing that, be sure to rehash the IRCd.
 
 Usage
 -----
