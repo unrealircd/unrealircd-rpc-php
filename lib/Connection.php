@@ -70,4 +70,24 @@ class Connection
 
         return false;
     }
+
+    public function user(): User
+    {
+        return new User($this);
+    }
+
+    public function channel(): Channel
+    {
+        return new Channel($this);
+    }
+
+    public function ban(): Ban
+    {
+        return new Ban($this);
+    }
+
+    public function spamfilter(): Spamfilter
+    {
+        return new Spamfilter($this);
+    }
 }

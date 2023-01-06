@@ -10,9 +10,9 @@ class Channel implements Contracts\User
 
     public Connection $connection;
 
-    public function __construct(string $uri, string $api_login, array $options)
+    public function __construct(Connection $conn)
     {
-        $this->connection = new Connection($uri, $api_login, $options);
+        $this->connection = $conn;
     }
 
     /**
@@ -21,7 +21,7 @@ class Channel implements Contracts\User
      * @return stdClass
      * @throws Exception
      */
-    public function get(): stdClass
+    public function getAll(): stdClass
     {
         $response = $this->connection->query('channel.list');
 
@@ -33,13 +33,13 @@ class Channel implements Contracts\User
     }
 
     /**
-     * Return a channel object
+     * Get a channel object
      *
      * @param  array  $params
      * @return stdClass
      * @throws Exception
      */
-    public function show(array $params): stdClass
+    public function get(array $params): stdClass
     {
         $response = $this->connection->query('channel.get', ['channel' => $params['channel']]);
 

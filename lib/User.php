@@ -10,9 +10,9 @@ class User implements Contracts\User
 
     public Connection $connection;
 
-    public function __construct(string $uri, string $api_login, array $options)
+    public function __construct(Connection $conn)
     {
-        $this->connection = new Connection($uri, $api_login, $options);
+        $this->connection = $conn;
     }
 
     /**
@@ -20,7 +20,7 @@ class User implements Contracts\User
      *
      * @throws Exception
      */
-    public function get(): stdClass
+    public function getAll(): stdClass
     {
         $response = $this->connection->query('user.list');
 
@@ -38,7 +38,7 @@ class User implements Contracts\User
      * @return stdClass
      * @throws Exception
      */
-    public function show(array $params): stdClass
+    public function get(array $params): stdClass
     {
         $response = $this->connection->query('user.get', ['nick' => $params['nick']]);
 

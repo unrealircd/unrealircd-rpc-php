@@ -10,9 +10,9 @@ class Ban implements Contracts\Ban
 
     public Connection $connection;
 
-    public function __construct(string $uri, string $api_login, array $options)
+    public function __construct(Connection $conn)
     {
-        $this->connection = new Connection($uri, $api_login, $options);
+        $this->connection = $conn;
     }
 
     /**
@@ -55,7 +55,7 @@ class Ban implements Contracts\Ban
      * @return stdClass
      * @throws Exception
      */
-    public function get(): stdClass
+    public function getAll(): stdClass
     {
         $response = $this->connection->query('server_ban.list');
 
@@ -67,13 +67,13 @@ class Ban implements Contracts\Ban
     }
 
     /**
-     * Show a specific ban.
+     * Get a specific ban.
      *
      * @param  array  $params
      * @return stdClass
      * @throws Exception
      */
-    public function show(array $params): stdClass
+    public function get(array $params): stdClass
     {
         $response = $this->connection->query('server_ban.get', [
             'name' => $params['name'],

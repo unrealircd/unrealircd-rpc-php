@@ -11,7 +11,7 @@ interface Contract
      *
      * @return stdClass
      */
-    public function get(): stdClass;
+    public function getAll(): stdClass;
 
     /**
      * Fetch data about a specific item.
@@ -19,5 +19,5 @@ interface Contract
      * @param  array  $params
      * @return stdClass
      */
-    public function show(array $params): stdClass;
+    public function get(array $params): stdClass;
 }
