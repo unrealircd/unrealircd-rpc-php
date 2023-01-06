@@ -4,7 +4,6 @@
     "description": "JSON-RPC interface to UnrealIRCd",
     "type": "library",
     "require": {
-        "php": "^8.0|^8.1",
         "textalk/websocket": "^1.5"
     },
     "license": "MIT",
