@@ -67,15 +67,14 @@ class ServerBan
     /**
      * Get a specific ban.
      *
-     * @param  array  $params
      * @return stdClass
      * @throws Exception
      */
-    public function get(array $params): stdClass
+    public function get(string $name, string $type): stdClass
     {
         $response = $this->connection->query('server_ban.get', [
-            'name' => $params['name'],
-            'type' => $params['type']
+            'name' => $name,
+            'type' => $type
         ]);
 
         if (!is_bool($response)) {

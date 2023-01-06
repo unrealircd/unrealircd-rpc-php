@@ -35,13 +35,12 @@ class Channel
     /**
      * Get a channel object
      *
-     * @param  array  $params
      * @return stdClass
      * @throws Exception
      */
-    public function get(array $params): stdClass
+    public function get(string $channel): stdClass
     {
-        $response = $this->connection->query('channel.get', ['channel' => $params['channel']]);
+        $response = $this->connection->query('channel.get', ['channel' => $channel]);
 
         if (!is_bool($response)) {
             return $response;
