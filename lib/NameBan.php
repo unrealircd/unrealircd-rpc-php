@@ -36,7 +36,10 @@ class NameBan
         if ($set_by)
             $query['set_by'] = $set_by;
 
-        return $this->connection->query('name_ban.add', $query);
+        $response = $this->connection->query('name_ban.add', $query);
+        if (property_exists($response, 'tkl'))
+            return $response->tkl;
+        return FALSE;
     }
 
     /**
@@ -48,9 +51,12 @@ class NameBan
      */
     public function delete(string $name): stdClass|array|bool
     {
-        return $this->connection->query('name_ban.del', [
+        $response = $this->connection->query('name_ban.del', [
             'name' => $name,
         ]);
+        if (property_exists($response, 'tkl'))
+            return $response->tkl;
+        return FALSE;
     }
 
     /**
@@ -84,7 +90,7 @@ class NameBan
         ]);
 
         if (!is_bool($response)) {
-            return $response;
+            return $response->tkl;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');

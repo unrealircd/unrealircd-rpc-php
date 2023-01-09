@@ -42,7 +42,7 @@ class User
         $response = $this->connection->query('user.get', ['nick' => $nick]);
 
         if (!is_bool($response)) {
-            return $response;
+            return $response->client;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');

@@ -24,12 +24,15 @@ class ServerBan
      */
     public function add(string $name, string $type, string $duration, string $reason): stdClass|array|bool
     {
-        return $this->connection->query('server_ban.add', [
+        $response = $this->connection->query('server_ban.add', [
             'name' => $name,
             'type' => $type,
             'reason' => $reason,
             'duration_string' => $duration ?? '1d',
         ]);
+        if (property_exists($response, 'tkl'))
+            return $response->tkl;
+        return FALSE;
     }
 
     /**
@@ -41,10 +44,13 @@ class ServerBan
      */
     public function delete(string $name, string $type): stdClass|array|bool
     {
-        return $this->connection->query('server_ban.del', [
+        $response = $this->connection->query('server_ban.del', [
             'name' => $name,
             'type' => $type,
         ]);
+        if (property_exists($response, 'tkl'))
+            return $response->tkl;
+        return FALSE;
     }
 
     /**
@@ -78,7 +84,7 @@ class ServerBan
         ]);
 
         if (!is_bool($response)) {
-            return $response;
+            return $response->tkl;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');

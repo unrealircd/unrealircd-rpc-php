@@ -43,7 +43,7 @@ class Channel
         $response = $this->connection->query('channel.get', ['channel' => $channel]);
 
         if (!is_bool($response)) {
-            return $response;
+            return $response->channel;
         }
 
         throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
