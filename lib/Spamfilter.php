@@ -31,6 +31,10 @@ class Spamfilter
             'ban_duration' => $ban_duration,
             'reason' => $reason,
         ]);
+
+        if (is_bool($response))
+            return false;
+
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;
@@ -50,6 +54,10 @@ class Spamfilter
             'spamfilter_targets' => $spamfilter_targets,
             'ban_action' => $ban_action,
         ]);
+
+        if (is_bool($response))
+            return false;
+            
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;

@@ -37,6 +37,10 @@ class NameBan
             $query['set_by'] = $set_by;
 
         $response = $this->connection->query('name_ban.add', $query);
+
+        if (is_bool($response))
+            return false;
+            
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;
@@ -54,6 +58,10 @@ class NameBan
         $response = $this->connection->query('name_ban.del', [
             'name' => $name,
         ]);
+        
+        if (is_bool($response))
+            return false;
+
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;

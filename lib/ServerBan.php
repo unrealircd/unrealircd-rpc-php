@@ -30,6 +30,10 @@ class ServerBan
             'reason' => $reason,
             'duration_string' => $duration ?? '1d',
         ]);
+
+        if (is_bool($response))
+            return false;
+            
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;
@@ -48,6 +52,10 @@ class ServerBan
             'name' => $name,
             'type' => $type,
         ]);
+
+        if (is_bool($response))
+            return false;
+            
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;

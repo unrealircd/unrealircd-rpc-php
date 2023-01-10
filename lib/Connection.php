@@ -98,4 +98,8 @@ class Connection
     {
         return new Spamfilter($this);
     }
+    public function nameban(): NameBan
+    {
+        return new NameBan($this);
+    }
 }
