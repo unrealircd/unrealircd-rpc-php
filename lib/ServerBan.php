@@ -33,7 +33,7 @@ class ServerBan
 
         if (is_bool($response))
             return false;
-            
+
         if (property_exists($response, 'tkl'))
             return $response->tkl;
         return FALSE;
@@ -95,6 +95,6 @@ class ServerBan
             return $response->tkl;
         }
 
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return false; // didn't exist
     }
 }

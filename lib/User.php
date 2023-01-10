@@ -45,7 +45,7 @@ class User
             return $response->client;
         }
 
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return false; // not found
     }
 
     /**
