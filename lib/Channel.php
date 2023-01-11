@@ -36,7 +36,6 @@ class Channel
      * Get a channel object
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function get(string $channel): stdClass|array|bool
     {
@@ -45,15 +44,13 @@ class Channel
         if (!is_bool($response)) {
             return $response->channel;
         }
-
-        throw new Exception('Invalid JSON Response from UnrealIRCd RPC.');
+        return false; /* eg user not found */
     }
 
     /**
      * Set and unset modes on a channel.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_mode(string $channel, string $modes, string $parameters): stdClass|array|bool
     {
@@ -68,7 +65,6 @@ class Channel
      * Set the channel topic.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_topic(string $channel, string $topic,
                               string $set_by=null, string $set_at=null): stdClass|array|bool
@@ -85,7 +81,6 @@ class Channel
      * Kick a user from the channel.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function kick(string $channel, string $nick, string $reason): stdClass|array|bool
     {

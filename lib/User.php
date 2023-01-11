@@ -17,8 +17,6 @@ class User
 
     /**
      * Return a list of all users.
-     *
-     * @throws Exception
      */
     public function getAll(): stdClass|array|bool
     {
@@ -35,7 +33,6 @@ class User
      * Return a user object
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function get(string $nick): stdClass|array|bool
     {
@@ -52,7 +49,6 @@ class User
      * Set the nickname of a user (changes the nick)
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_nick(string $nick, string $newnick): stdClass|array|bool
     {
@@ -66,7 +62,6 @@ class User
      * Set the username/ident of a user
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_username(string $nick, string $username): stdClass|array|bool
     {
@@ -80,7 +75,6 @@ class User
      * Set the realname/gecos of a user
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_realname(string $nick, string $realname): stdClass|array|bool
     {
@@ -94,7 +88,6 @@ class User
      * Set a virtual host (vhost) on the user
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_vhost(string $nick, string $vhost): stdClass|array|bool
     {
@@ -108,7 +101,6 @@ class User
      * Change the user modes of a user.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_mode(string $nick, string $mode, bool $hidden = false): stdClass|array|bool
     {
@@ -123,7 +115,6 @@ class User
      * Change the snomask of a user (oper).
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_snomask(string $nick, string $snomask, bool $hidden = false): stdClass|array|bool
     {
@@ -138,7 +129,6 @@ class User
      * Make user an IRC Operator (oper).
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function set_oper(string $nick, string $oper_account, string $oper_class,
                              string $class = null, string $modes = null,
@@ -159,7 +149,6 @@ class User
      * Join a user to a channel.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function join(string $nick, string $channel,
                          string $key = null, bool $force = false): stdClass|array|bool
@@ -176,7 +165,6 @@ class User
      * Part a user from a channel.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function part(string $nick, string $channel, bool $force = false): stdClass|array|bool
     {
@@ -191,7 +179,6 @@ class User
      * Quit a user from IRC. Pretend it is a normal QUIT.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function quit(string $nick, string $reason): stdClass|array|bool
     {
@@ -205,7 +192,6 @@ class User
      * Kill a user from IRC. Show that the user is forcefully removed.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function kill(string $nick, string $reason): stdClass|array|bool
     {

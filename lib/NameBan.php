@@ -23,7 +23,6 @@ class NameBan
      * @param string $duration Optional
      * @param string $set_by Optional
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function add(string $name, string $reason, string $duration = NULL, $set_by = NULL): stdClass|array|bool
     {
@@ -51,7 +50,6 @@ class NameBan
      *
      * @param  string  $name
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function delete(string $name): stdClass|array|bool
     {
@@ -89,7 +87,6 @@ class NameBan
      *
      * @param string $name
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function get(string $name): stdClass|array|bool
     {

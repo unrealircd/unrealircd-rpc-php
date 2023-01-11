@@ -19,7 +19,6 @@ class Spamfilter
      * Add a spamfilter.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function add(string $name, string $match_type, string $spamfilter_targets, string $ban_action, string $ban_duration, string $reason): stdClass|array|bool
     {
@@ -44,7 +43,6 @@ class Spamfilter
      * Delete a spamfilter.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function delete(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|array|bool
     {
@@ -84,7 +82,6 @@ class Spamfilter
      * Get a specific spamfilter.
      *
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function get(string $name, string $match_type, string $spamfilter_targets, string $ban_action): stdClass|array|bool
     {

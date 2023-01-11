@@ -20,7 +20,6 @@ class ServerBan
      *
      * @param  string  $user
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function add(string $name, string $type, string $duration, string $reason): stdClass|array|bool
     {
@@ -44,7 +43,6 @@ class ServerBan
      *
      * @param  string  $name
      * @return stdClass|array|bool
-     * @throws Exception
      */
     public function delete(string $name, string $type): stdClass|array|bool
     {
