@@ -102,4 +102,8 @@ class Connection
     {
         return new NameBan($this);
     }
+    public function server(): Server
+    {
+        return new Server($this);
+    }
 }
