@@ -106,7 +106,7 @@ class Connection
     {
         return new Server($this);
     }
-    public function serverbanexception(): BanException
+    public function serverbanexception(): ServerBanException
     {
         return new ServerBanException($this);
     }
