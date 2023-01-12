@@ -5,7 +5,7 @@ namespace UnrealIRCd;
 use Exception;
 use stdClass;
 
-class BanException
+class ServerBanException
 {
 
     public Connection $connection;
