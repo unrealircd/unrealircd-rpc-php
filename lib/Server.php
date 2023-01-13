@@ -87,4 +87,16 @@ class Server
         ]);
     }
 
+    /**
+     * List modules on the server
+     *
+     * @return stdClass|array|bool
+     * @throws Exception
+     */
+    public function module_list(): stdClass|array|bool
+    {
+        return $this->connection->query('server.module_list', [
+        ]);
+    }
+
 }
