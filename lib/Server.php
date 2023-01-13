@@ -86,17 +86,21 @@ class Server
             'link' => $name,
         ]);
     }
-
+    
+    
     /**
      * List modules on the server
      *
      * @return stdClass|array|bool
      * @throws Exception
      */
-    public function module_list(): stdClass|array|bool
+    public function module_list($name = NULL): stdClass|array|bool
     {
-        return $this->connection->query('server.module_list', [
-        ]);
+        $arr = [];
+        if ($name)
+            $arr['server'] = $name;
+        
+        return $this->connection->query('server.module_list', $arr);
     }
 
 }
