@@ -29,6 +29,8 @@ class Connection
             'timeout' => 10,
         ]);
 
+        /* Start the connection now */
+        $this->connection->ping();
     }
 
     /**
