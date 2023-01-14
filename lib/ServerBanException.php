@@ -74,7 +74,7 @@ class ServerBanException
      */
     public function getAll(): stdClass|array|bool
     {
-        $response = $this->connection->query('server_ban_exception.list');
+        $response = $this->connection->query('server_ban_exception.list', []);
 
         if (!is_bool($response)) {
             return $response->list;
@@ -102,3 +102,4 @@ class ServerBanException
         return false; // didn't exist
     }
 }
+
