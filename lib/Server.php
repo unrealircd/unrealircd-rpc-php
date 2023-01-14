@@ -80,10 +80,11 @@ class Server
      * @return stdClass|array|bool
      * @throws Exception
      */
-    public function disconnect(string $name): stdClass|array|bool
+    public function disconnect(string $name, string $reason = "No reason"): stdClass|array|bool
     {
         return $this->connection->query('server.disconnect', [
             'link' => $name,
+            'reason' => $reason
         ]);
     }
     
