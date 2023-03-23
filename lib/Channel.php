@@ -84,7 +84,7 @@ class Channel
      */
     public function kick(string $channel, string $nick, string $reason): stdClass|array|bool
     {
-        return $this->connection->query('user.kick', [
+        return $this->connection->query('channel.kick', [
             'nick' => $nick,
             'channel' => $channel,
             'reason' => $reason,
