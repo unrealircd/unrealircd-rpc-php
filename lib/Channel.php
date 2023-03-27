@@ -21,9 +21,11 @@ class Channel
      * @return stdClass|array|bool
      * @throws Exception
      */
-    public function getAll(): stdClass|array|bool
+    public function getAll(int $object_detail_level=1): stdClass|array|bool
     {
-        $response = $this->connection->query('channel.list');
+        $response = $this->connection->query('channel.list', [
+            'object_detail_level' => $object_detail_level,
+        ]);
 
         if(!is_bool($response)) {
             return $response->list;
@@ -37,9 +39,12 @@ class Channel
      *
      * @return stdClass|array|bool
      */
-    public function get(string $channel): stdClass|array|bool
+    public function get(string $channel, int $object_detail_level=3): stdClass|array|bool
     {
-        $response = $this->connection->query('channel.get', ['channel' => $channel]);
+        $response = $this->connection->query('channel.get', [
+            'channel' => $channel,
+            'object_detail_level' => $object_detail_level,
+        ]);
 
         if (!is_bool($response)) {
             return $response->channel;
