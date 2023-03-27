@@ -18,9 +18,11 @@ class User
     /**
      * Return a list of all users.
      */
-    public function getAll(): stdClass|array|bool
+    public function getAll(int $object_detail_level=2): stdClass|array|bool
     {
-        $response = $this->connection->query('user.list');
+        $response = $this->connection->query('user.list', [
+            'object_detail_level' => $object_detail_level,
+        ]);
 
         if(!is_bool($response)) {
             return $response->list;
@@ -34,9 +36,12 @@ class User
      *
      * @return stdClass|array|bool
      */
-    public function get(string $nick): stdClass|array|bool
+    public function get(string $nick, int $object_detail_level=4): stdClass|array|bool
     {
-        $response = $this->connection->query('user.get', ['nick' => $nick]);
+        $response = $this->connection->query('user.get', [
+            'nick' => $nick,
+            'object_detail_level' => $object_detail_level,
+        ]);
 
         if (!is_bool($response)) {
             return $response->client;
