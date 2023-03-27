@@ -37,9 +37,9 @@ class Server
      * @return stdClass|array|bool
      * @throws Exception
      */
-    public function get(string $nick): stdClass|array|bool
+    public function get(string $server = null): stdClass|array|bool
     {
-        $response = $this->connection->query('server.get', ['server' => $nick]);
+        $response = $this->connection->query('server.get', ['server' => $server]);
 
         if (!is_bool($response)) {
             return $response->server;
