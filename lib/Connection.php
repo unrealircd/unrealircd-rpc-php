@@ -81,6 +81,11 @@ class Connection
         throw new Exception('Invalid JSON-RPC response from UnrealIRCd: not an error and not a result.');
     }
 
+    public function rpc(): Rpc
+    {
+        return new Rpc($this);
+    }
+
     public function user(): User
     {
         return new User($this);
