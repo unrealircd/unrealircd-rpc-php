@@ -56,21 +56,61 @@ class Connection
         ];
 
         $json_rpc = json_encode($rpc);
-
         $this->connection->text($json_rpc);
-        $reply = $this->connection->receive();
+
+        do {
+            $reply = $this->connection->receive();
+
+            $reply = json_decode($reply);
+
+            if (property_exists($reply, 'result')) {
+                /* Possibly we are streaming log events, then ignore this event
+                 * NOTE: This does mean that this event is "lost"
+                 */
+                if ($id !== $reply->id)
+                    continue;
+                $this->errno = 0;
+                $this->error = NULL;
+                return $reply->result;
+            }
+
+            if (property_exists($reply, 'error')) {
+                $this->errno = $reply->error->code;
+                $this->error = $reply->error->message;
+                return false;
+            }
+        } while(0);
+
+        /* This should never happen */
+        throw new Exception('Invalid JSON-RPC response from UnrealIRCd: not an error and not a result.');
+    }
+
+    /**
+     * Grab and/or wait for next event. Used for log streaming.
+     * @note This function will return NULL after a 10 second timeout,
+     * this so the function is not entirely blocking. You can safely
+     * retry the operation if the return value === NULL.
+     *
+     * @return object|array|bool|null
+     * @throws Exception
+     */
+    public function eventloop(): object|array|bool|null
+    {
+        try {
+            $reply = $this->connection->receive();
+        } catch (WebSocket\TimeoutException) {
+            return NULL;
+        }
 
         $reply = json_decode($reply);
 
         if (property_exists($reply, 'result')) {
-            if($id !== $reply->id) {
-                throw new Exception('Invalid ID. This is not the expected reply.');
-            }
             $this->errno = 0;
             $this->error = NULL;
             return $reply->result;
         }
 
+        /* This would be weird */
         if (property_exists($reply, 'error')) {
             $this->errno = $reply->error->code;
             $this->error = $reply->error->message;
@@ -78,7 +118,7 @@ class Connection
         }
 
         /* This should never happen */
-        throw new Exception('Invalid JSON-RPC response from UnrealIRCd: not an error and not a result.');
+        throw new Exception('Invalid JSON-RPC data from UnrealIRCd: not an error and not a result.');
     }
 
     public function rpc(): Rpc
@@ -116,5 +156,9 @@ class Connection
     public function serverbanexception(): ServerBanException
     {
         return new ServerBanException($this);
+    }
+    public function log(): Log
+    {
+        return new Log($this);
     }
 }
