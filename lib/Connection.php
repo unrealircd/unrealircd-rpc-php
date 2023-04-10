@@ -96,9 +96,25 @@ class Connection
      */
     public function eventloop(): object|array|bool|null
     {
+        $starttime = microtime(true);
         try {
             $reply = $this->connection->receive();
-        } catch (WebSocket\TimeoutException) {
+        } catch (WebSocket\TimeoutException $e) {
+            if (microtime(true) - $starttime < 1)
+            {
+                /* There's some bug in the library: if we
+                 * caught the timeout exception once (so
+                 * harmless) and then later the server gets
+                 * killed or closes the connection otherwise,
+                 * then it will again throw WebSocket\TimeoutException
+                 * even though it has nothing to do with timeouts.
+                 * We detect this by checking if the timeout
+                 * took less than 1 second, then we know for sure
+                 * that it wasn't really a timeout (since the
+                 * timeout is normally 10 seconds).
+                 */
+                throw $e;
+            }
             return NULL;
         }
 
