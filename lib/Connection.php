@@ -142,6 +142,11 @@ class Connection
         return new Rpc($this);
     }
 
+    public function stats(): Stats
+    {
+        return new Stats($this);
+    }
+
     public function user(): User
     {
         return new User($this);
@@ -161,18 +166,22 @@ class Connection
     {
         return new Spamfilter($this);
     }
+
     public function nameban(): NameBan
     {
         return new NameBan($this);
     }
+
     public function server(): Server
     {
         return new Server($this);
     }
+
     public function serverbanexception(): ServerBanException
     {
         return new ServerBanException($this);
     }
+
     public function log(): Log
     {
         return new Log($this);
