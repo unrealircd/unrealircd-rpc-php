@@ -22,7 +22,7 @@ class Stats
      */
     public function get(int $object_detail_level=1): stdClass|array|bool
     {
-        $response = $this->connection->query('stats.get', [
+        return $this->connection->query('stats.get', [
             'object_detail_level' => $object_detail_level,
         ]);
     }
