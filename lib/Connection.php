@@ -119,7 +119,7 @@ class Connection
         try {
             $reply = $this->connection->receive();
         } catch (WebSocket\TimeoutException $e) {
-            if (microtime(true) - $starttime < 1)
+            if (microtime(true) - $starttime < 1000)
             {
                 /* There's some bug in the library: if we
                  * caught the timeout exception once (so
