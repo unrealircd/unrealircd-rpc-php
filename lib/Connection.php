@@ -69,6 +69,7 @@ class Connection
         if ($no_wait)
             return true;
 
+        $starttime = time();
         do {
             $reply = $this->connection->receive();
 
@@ -90,6 +91,8 @@ class Connection
                 $this->error = $reply->error->message;
                 return false;
             }
+            if (time() - $starttime > 10)
+                throw new Exception('RPC request timed out');
         } while(1); // wait for the reply to OUR request
 
         /* This should never happen */
