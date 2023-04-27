@@ -37,4 +37,15 @@ class Log
     {
         return $this->connection->query('log.unsubscribe');
     }
+
+    /**
+     * Get past log events.
+     *
+     * @return stdClass|array|bool
+     */
+    public function getAll(array $sources): stdClass|array|bool
+    {
+        return $this->connection->query('log.list', [
+        ]);
+    }
 }
