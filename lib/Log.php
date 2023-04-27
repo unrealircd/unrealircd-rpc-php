@@ -43,7 +43,7 @@ class Log
      *
      * @return stdClass|array|bool
      */
-    public function getAll(array $sources): stdClass|array|bool
+    public function getAll(): stdClass|array|bool
     {
         $response = $this->connection->query('log.list', []);
 
