@@ -45,7 +45,11 @@ class Log
      */
     public function getAll(array $sources): stdClass|array|bool
     {
-        return $this->connection->query('log.list', [
-        ]);
+        $response = $this->connection->query('log.list', []);
+
+        if (!is_bool($response) && property_exists($response, 'list'))
+            return $response->list;
+
+        return false;
     }
 }
