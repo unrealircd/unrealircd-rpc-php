@@ -31,9 +31,13 @@ class Connection
 
         /* Start the connection now */
         if (isset($options["issuer"]))
-            $this->query('rpc.set_issuer', ['name' => $options["issuer"] ]);
-        else
+        {
+            /* Set issuer and don't wait for the reply (async) */
+            $this->query('rpc.set_issuer', ['name' => $options["issuer"]], true);
+        } else {
+            /* Ping-pong */
             $this->connection->ping();
+        }
     }
 
     /**
@@ -43,11 +47,12 @@ class Connection
      *
      * @param  string  $method
      * @param  array|null  $params
+     * @param  bool  $no_wait
      *
      * @return object|array|bool
      * @throws Exception
      */
-    public function query(string $method, array|null $params = null): object|array|bool
+    public function query(string $method, array|null $params = null, $no_wait = false): object|array|bool
     {
         $id = random_int(1, 99999);
 
@@ -60,6 +65,9 @@ class Connection
 
         $json_rpc = json_encode($rpc);
         $this->connection->text($json_rpc);
+
+        if ($no_wait)
+            return true;
 
         do {
             $reply = $this->connection->receive();
@@ -82,7 +90,7 @@ class Connection
                 $this->error = $reply->error->message;
                 return false;
             }
-        } while(0);
+        } while(1); // wait for the reply to OUR request
 
         /* This should never happen */
         throw new Exception('Invalid JSON-RPC response from UnrealIRCd: not an error and not a result.');
