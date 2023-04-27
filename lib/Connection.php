@@ -75,12 +75,17 @@ class Connection
 
             $reply = json_decode($reply);
 
-            if (property_exists($reply, 'result')) {
-                /* Possibly we are streaming log events, then ignore this event
-                 * NOTE: This does mean that this event is "lost"
+            if (property_exists($reply, 'id') && ($id !== $reply->id))
+            {
+                /* This is not our request. Perhaps we are streaming log events
+                 * or this is an asynchronous response to like set_issuer.
+                 * We don't care about that, continue.
+                 * NOTE: This does mean that this event info is "lost"
                  */
-                if ($id !== $reply->id)
-                    continue;
+                continue;
+            }
+
+            if (property_exists($reply, 'result')) {
                 $this->errno = 0;
                 $this->error = NULL;
                 return $reply->result;
