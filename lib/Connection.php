@@ -30,7 +30,10 @@ class Connection
         ]);
 
         /* Start the connection now */
-        $this->connection->ping();
+        if (isset($options["issuer"]))
+            $this->query('rpc.set_issuer', ['name' => $options["issuer"] ]);
+        else
+            $this->connection->ping();
     }
 
     /**
