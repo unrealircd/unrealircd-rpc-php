@@ -115,6 +115,7 @@ class Connection
      */
     public function eventloop(): object|array|bool|null
     {
+        $this->connection->setTimeout(2); /* lower timeout for socket loop */
         $starttime = microtime(true);
         try {
             $reply = $this->connection->receive();
@@ -136,6 +137,8 @@ class Connection
             }
             return NULL;
         }
+
+        $this->connection->setTimeout(10); /* set timeout back again */
 
         $reply = json_decode($reply);
 
