@@ -52,10 +52,11 @@ class ServerBanException
      * @return stdClass|array|bool
      * @throws Exception
      */
-    public function delete(string $name): stdClass|array|bool
+    public function delete(string $name, string $set_by = NULL): stdClass|array|bool
     {
         $response = $this->connection->query('server_ban_exception.del', [
             'name' => $name,
+            'set_by' => $set_by
         ]);
 
         if (is_bool($response))
