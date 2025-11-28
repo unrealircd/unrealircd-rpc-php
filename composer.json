@@ -1,6 +1,6 @@
 {
     "name": "unrealircd/unrealircd-rpc",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "JSON-RPC interface to UnrealIRCd",
     "type": "library",
     "require": {
@@ -21,6 +21,10 @@
         {
             "name": "Denver Freeburn",
             "email": "sketch@sketchni.uk"
+        },
+        {
+            "name": "Valware",
+            "email": "v.a.pond@outlook.com"
         }
     ],
     "support": {
