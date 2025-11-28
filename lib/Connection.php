@@ -208,4 +208,9 @@ class Connection
     {
         return new Log($this);
     }
+    
+    public function message(): Message
+    {
+        return new Message($this);
+    }
 }
