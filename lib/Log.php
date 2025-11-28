@@ -58,7 +58,7 @@ class Log
      *
      * @return stdClass|array|bool
      */
-    public function Send(string $level, string $subsystem, string $event_id, string $message): stdClass|array|bool
+    public function send(string $level, string $subsystem, string $event_id, string $message): stdClass|array|bool
     {
         return $this->connection->query('log.send', [
             'level' => $level, 'subsystem' => $subsystem, 'event_id' => $event_id, 'message' => $message
