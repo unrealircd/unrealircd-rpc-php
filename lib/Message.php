@@ -24,7 +24,7 @@ class Message
      */
     public function privmsg(string $nick, string $message): stdClass|array|bool
     {
-        return $this->connection->query('message.privmsg', [
+        return $this->connection->query('message.send_privmsg', [
             'nick' => $nick,
             'message' => $message,
         ]);
@@ -39,7 +39,7 @@ class Message
      */
     public function notice(string $nick, string $message): stdClass|array|bool
     {
-        return $this->connection->query('message.notice', [
+        return $this->connection->query('message.send_notice', [
             'nick' => $nick,
             'message' => $message,
         ]);
@@ -55,7 +55,7 @@ class Message
      */
     public function numeric(string $nick, int $numeric, string $message): stdClass|array|bool
     {
-        return $this->connection->query('message.numeric', [
+        return $this->connection->query('message.send_numeric', [
             'nick' => $nick,
             'numeric' => $numeric,
             'message' => $message,
@@ -85,6 +85,6 @@ class Message
             $params['context'] = $context;
         }
 
-        return $this->connection->query('message.standardreply', $params);
+        return $this->connection->query('message.send_standardreply', $params);
     }
 }
